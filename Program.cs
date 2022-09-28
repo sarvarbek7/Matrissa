@@ -1,37 +1,40 @@
 ﻿using System;
-using Matrix_Project.Classes;
+using Matrix_Project.Utils;
+using Matrix_Project.Logic;
 // See https://aka.ms/new-console-template for more information
 
 var watch = new System.Diagnostics.Stopwatch();
 
-int size = 5;
+int size = 2;
 double[,] randomMatrix = new double[size, size];
 double[,] identityMatrix = new double[size, size];
 double[,] augmentedMatrix = new double[size, 2 * size];
 double[,] inverseMatrix = new double[size, size];
 double[] resultVector = new double[size];
 double[] solutionVector = new double[size];
+
 watch.Start();
+
 // Generate matrixes
-Generator.GenerateRandomMatrix(size, randomMatrix);
-Generator.GenerateIdentityMatrix(size, identityMatrix);
-Generator.CreateAugmentedMatrix(size, identityMatrix, randomMatrix, augmentedMatrix);
-Generator.GenerateResultVector(size, resultVector);
-// Write Random Matrix to Console
+randomMatrix = Generator.GenerateRandomMatrix(size, size);
+identityMatrix = Generator.GenerateIdentityMatrix(size);
+resultVector = Generator.GenerateRandomMatrix(size);
+augmentedMatrix = Generator.CreateAugmentedMatrix(size, identityMatrix, randomMatrix);
+
 Console.WriteLine("Random Matrix");
 ConsoleWriter.WriteArrayToConsole(size, size, randomMatrix);
-// Calculate an Inverse Matrix
-Logic.FindInverseOfRandomMatrix(size, augmentedMatrix, inverseMatrix);
+
+
+inverseMatrix = FindInverseMatrix.InverseOfMatrix(size, augmentedMatrix);
+
 Console.WriteLine("Inverse Matrix");
 ConsoleWriter.WriteArrayToConsole(size, size, inverseMatrix);
 
-
-// Write result Vector to Console
 Console.WriteLine("Result Vector");
 ConsoleWriter.WriteArrayToConsole(size, resultVector);
 
 // Calculate solution using x = Inverse(A) * b
-Logic.CalculateSolutionVector(size, resultVector, inverseMatrix, solutionVector);
+solutionVector = CalculateSolution.CalculateSolutionVectorUsingAugmentedMatrix(size, resultVector, inverseMatrix);
 watch.Stop();
 
 // Calculate and write solution vector to Console

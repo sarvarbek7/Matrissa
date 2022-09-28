@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Matrix_Project.Classes
+namespace Matrix_Project.Utils
 {
     public class ConsoleWriter
     {
