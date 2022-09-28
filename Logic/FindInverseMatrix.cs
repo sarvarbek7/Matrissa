@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Matrix_Project.Classes
+namespace Matrix_Project.Logic
 {
-    public class Logic
+    public class FindInverseMatrix
     {
-        static public void FindInverseOfRandomMatrix(int size, double[,] augmentedMatrix, double[,] inverseMatrix)
+        static public double[,] InverseOfMatrix(int size, double[,] augmentedMatrix)
         {
+            double[,] inverseMatrix = new double[size, size];
+
             for (int k = 0; k < size; k++)
             {
                 double ratio = 1;
@@ -73,23 +75,7 @@ namespace Matrix_Project.Classes
                 }
             }
 
-        }
-
-        static public void CalculateSolutionVector(int size, double[] resultVector, double[,] inverseMatrix, double[] solutionVector)
-        {
-            for (int row = 0; row < size; row++)
-            {
-                solutionVector[row] = 0;
-                for (int column = 0; column < size; column++)
-                {
-                    solutionVector[row] += inverseMatrix[row, column] * resultVector[column];
-                }
-
-                if (solutionVector[row] == double.NaN)
-                {
-                    throw new Exception("There is no solution");
-                }
-            }
+            return inverseMatrix;
         }
     }
 }
